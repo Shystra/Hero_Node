@@ -9,9 +9,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // /old?text=Olá%20Mundo
 
-const userRoutes = new UsersRoutes().getRoutes();
+const usersRoutes = new UsersRoutes().getRoutes();
 
-app.use('./users', userRoutes);
+app.use('/users', usersRoutes)
 
 
 app.use(
