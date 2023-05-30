@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { UsersRoutes } from './routes/users.routes';
 import multer from 'multer';
+import { upload } from './config/multer';
 
 
 const app: Application = express();
@@ -11,10 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 // /old?text=Olá%20Mundo
 
 const usersRoutes = new UsersRoutes().getRoutes();
-const upload = multer();
 
 
-app.use('/users', upload.any(), usersRoutes);
+
+app.use('/users', usersRoutes);
 
 
 app.use(
