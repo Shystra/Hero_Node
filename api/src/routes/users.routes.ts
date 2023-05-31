@@ -20,6 +20,8 @@ class UsersRoutes {
         
         );
         
+        this.router.post('/auth', this.usersController.auth.bind(this.usersController))
+        
         return this.router;
     }
 }

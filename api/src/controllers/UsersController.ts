@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UsersServices } from "../services/UsersServices";
 import { s3 } from "../config/aws";
-import {v4 as uuid} from 'uuid';
+
 import { upload } from "../config/multer";
 
 class UsersController {
@@ -45,24 +45,32 @@ class UsersController {
 
 
 
-    auth(){
+    async auth(request: Request, response: Response, next: NextFunction){
         //autenticacao
+        const {email, password} = request.body;
+        try {
+            const result = await this.usersServices.auth(email, password)
+            return response.json(result);
+
+        } catch (error) {
+            next(error);
+        }
     }
 
     async update(request: Request, response: Response, next: NextFunction){
         const { name, oldPassword, newPassword } = request.body;
-        console.log(request.file);
+        // console.log(request.file);
 
         try {
-            const avatar_url = request.file?.buffer;
-            const uploadS3 = await s3.upload({
-                Bucket: 'projeto-heroi',
-                Key: `${uuid()}-${request.file?.originalname}`,
-                // ACL: 'public-read',
-                Body: avatar_url,
-            }).promise();
             
-            console.log('url imagem =>', uploadS3.Location);
+
+            const result = await this.usersServices.update({
+                name, 
+                oldPassword, 
+                newPassword, 
+                avatar_url:request.file,
+            });
+            return response.status(200).json(result);
 
         } catch (error) {
             next(error);
