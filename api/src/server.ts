@@ -3,10 +3,12 @@ import { UsersRoutes } from './routes/users.routes';
 import multer from 'multer';
 import { upload } from './config/multer';
 import { SchedulesRoutes } from './routes/schedules.routes';
+import cors from 'cors';
+
 
 
 const app: Application = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
