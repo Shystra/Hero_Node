@@ -1,5 +1,6 @@
 import style from './Login.module.css';
 import logo from '../../assets/logo.webp'
+import { Input } from '../../components/Input';
 
 
 
@@ -15,8 +16,8 @@ export function Login(){
                 <div className={style.card}>
                     <h2>Olá, seja bem vindo</h2>
                     <form>
-                        <input type='text'/>
-                        <input type='text'/>
+                        <Input placeholder="Email" />
+                        <Input placeholder="Senha" />
                         <button>Entrar</button>
                     </form>
                     </div>
