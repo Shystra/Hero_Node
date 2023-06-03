@@ -4,6 +4,10 @@ import { Input } from '../../components/Input';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from '../../components/Button';
+import { Link } from 'react-router-dom';
+import { AiOutlineMail } from 'react-icons/ai';
+import { BsKey } from 'react-icons/bs';
 
 interface IFormValues {
     email: string;
@@ -37,12 +41,16 @@ export function Login(){
                     <img src={logo} alt='' />
                 </div>
                 <div className={style.card}>
-                    <h2>Olá, seja bem vindo</h2>
+                    <h2>Olá, seja bem vindo!</h2>
                     <form onSubmit={submit}>
-                        <Input placeholder="Email" type='text'{...register('email', { required: true})} error={errors.email && errors.email.message}/>
-                        <Input placeholder="Senha" type="password"{...register('password', { required: true})} />
-                        <button>Entrar</button>
+        <Input placeholder="Email" type='text' icon={<AiOutlineMail size={20} />}{...register('email', { required: true})} error={errors.email && errors.email.message}/>
+        <Input placeholder="Senha" type="password" icon={<BsKey size={20} />}{...register('password', { required: true})} error={errors.password && errors.password.message}/>
+                <Button text='Entrar'/>
                     </form>
+                        <div className={style.register}> 
+
+                            <span>Ainda não tem conta? <Link to={'/register'}>Cadastre-se</Link></span>
+                        </div>
                     </div>
                 </div>
             </div>

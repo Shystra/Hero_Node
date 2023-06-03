@@ -45,3 +45,21 @@
     font-weight: 300;
     margin-bottom: 2rem;
 }
+.navigate a{
+    color: var(--white);
+}
+
+.card span{
+    color: var(--white);
+    font-weight: 300;
+    font-size: .8rem;
+}
+
+.register {
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.register a {
+    color: var(--white)
+}
