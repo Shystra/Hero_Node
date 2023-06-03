@@ -21,7 +21,7 @@ export function Login(){
         password: yup.string().required('Campo de senha obrigatório'),
     })
 
-    const {register, handleSubmit} = useForm<IFormValues>({
+    const {register, handleSubmit, formState: {errors}} = useForm<IFormValues>({
         resolver: yupResolver(schema),});
 
     const submit = handleSubmit((data)=> {
@@ -39,8 +39,8 @@ export function Login(){
                 <div className={style.card}>
                     <h2>Olá, seja bem vindo</h2>
                     <form onSubmit={submit}>
-                        <Input placeholder="Email"{...register('email', { required: true})} />
-                        <Input placeholder="Senha"{...register('password', { required: true})} />
+                        <Input placeholder="Email" type='text'{...register('email', { required: true})} error={errors.email && errors.email.message}/>
+                        <Input placeholder="Senha" type="password"{...register('password', { required: true})} />
                         <button>Entrar</button>
                     </form>
                     </div>
