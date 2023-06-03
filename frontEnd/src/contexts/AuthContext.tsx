@@ -32,6 +32,8 @@ interface ISignIn {
   email: string;
   password: string;
 }
+
+
 export const AuthContext = createContext({} as IAuthContextData);
 
 export function AuthProvider({ children }: IAuthProvider) {

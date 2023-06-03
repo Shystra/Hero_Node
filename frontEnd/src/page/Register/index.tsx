@@ -1,7 +1,7 @@
 import style from './Register.module.css';
 import logo from '../../assets/logo.webp';
 import { Input } from '../../components/Input';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { BsPerson, BsKey } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { api } from '../../server';
+import { useAuth } from '../../hooks/auth';
 interface IFormValues {
   name: string;
   email: string;
@@ -17,6 +18,7 @@ interface IFormValues {
 }
 
 export function Register() {
+  const { signIn } = useAuth();
   const schema = yup.object().shape({
     name: yup.string().required('Campo de nome obrigatório'),
     email: yup
@@ -28,6 +30,8 @@ export function Register() {
       .min(6, 'Mínimo de 6 caracteres')
       .required('Campo de senha obrigatório'),
   });
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -40,7 +44,7 @@ export function Register() {
       email: email,
       password: password
     });
-    // navigate('/dashboard')
+    signIn({ email, password })
     console.log(result)
   });
   return (
