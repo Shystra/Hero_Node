@@ -27,11 +27,11 @@ export function Register() {
     const {register, handleSubmit, formState: {errors}} = useForm<IFormValues>( {resolver: yupResolver(schema)})
 
     // --> Salva todas as credenciais ^ ali de cima
-    const submit = handleSubmit( async (data) => {
+    const submit = handleSubmit( async ({name, email, password}) => {
         const result = await api.post('/users', {
-            name: data.name,
-            email: data.email,
-            password: data.password
+            name: name,
+            email: email,
+            password: password
         });
         console.log(result)
     })

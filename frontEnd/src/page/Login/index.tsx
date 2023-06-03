@@ -8,6 +8,7 @@ import { Button } from '../../components/Button';
 import { Link } from 'react-router-dom';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsKey } from 'react-icons/bs';
+import { api } from '../../server';
 
 interface IFormValues {
     email: string;
@@ -28,8 +29,12 @@ export function Login(){
     const {register, handleSubmit, formState: {errors}} = useForm<IFormValues>({
         resolver: yupResolver(schema),});
 
-    const submit = handleSubmit((data)=> {
-        console.log(data)
+    const submit = handleSubmit( async ({email, password}) => {
+        const result = await api.post('/users/auth', {
+            email: email,
+            password: password
+        });
+        console.log(result)
     })
 
     return (
