@@ -6,7 +6,7 @@ import axios, {
   } from 'axios';
   
   const api: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'http://localhost:3000',
   });
   let isRefreshing = false;
   let failedRequest: Array<RequestConfig> = [];

@@ -1,7 +1,8 @@
 import style from './Register.module.css';
 import logo from '../../assets/logo.webp';
 import { Input } from '../../components/Input';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+
 import { Button } from '../../components/Button';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -33,12 +34,14 @@ export function Register() {
     formState: { errors },
   } = useForm<IFormValues>({ resolver: yupResolver(schema) });
 
-  const submit = handleSubmit(async (data) => {
+  const submit = handleSubmit(async ({name, email, password}) => {
     const result = await api.post('/users', {
-      name: data.name,
-      email: data.email,
-      password: data.password,
+      name: name,
+      email: email,
+      password: password
     });
+    // navigate('/dashboard')
+    console.log(result)
   });
   return (
     <div className={style.background}>
