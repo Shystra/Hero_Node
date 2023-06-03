@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BsKey, BsPerson } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai'
+import { api } from '../../server';
 
 
 interface IFormValues{
@@ -25,9 +26,16 @@ export function Register() {
 
     const {register, handleSubmit, formState: {errors}} = useForm<IFormValues>( {resolver: yupResolver(schema)})
 
-    const submit = handleSubmit((data) => {
-        console.log(data)
+    // --> Salva todas as credenciais ^ ali de cima
+    const submit = handleSubmit( async (data) => {
+        const result = await api.post('/users', {
+            name: data.name,
+            email: data.email,
+            password: data.password
+        });
+        console.log(result)
     })
+    // --> chama a api para validação
 
     return (
         <div className={style.background}>
