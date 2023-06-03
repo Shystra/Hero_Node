@@ -1,14 +1,12 @@
 import style from './Button.module.css';
 
-
 interface IButton {
-    text: string; 
+  text: string;
 }
-
-export const Button = ({text}: IButton) => {
-    return (
-        <button className={style.button}>
-            <span>{text}</span>
-        </button>
-    )
-}
+export const Button = ({ text }: IButton) => {
+  return (
+    <button className={style.button}>
+      <span>{text}</span>
+    </button>
+  );
+};
