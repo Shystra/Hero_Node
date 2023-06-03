@@ -1,14 +1,14 @@
+import { BrowserRouter } from 'react-router-dom';
+import { RouteApp } from './routes';
 import './global.css';
 
 
 function App (){
   return (
-    <>
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <BrowserRouter>
+      <RouteApp />
+    </BrowserRouter>
     
-    </>
   )
 }
 
