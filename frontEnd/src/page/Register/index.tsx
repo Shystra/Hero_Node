@@ -1,7 +1,7 @@
 import style from './Register.module.css';
 import logo from '../../assets/logo.webp';
 import { Input } from '../../components/Input';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import { Button } from '../../components/Button';
 import { useForm } from 'react-hook-form';
@@ -31,7 +31,7 @@ export function Register() {
       .required('Campo de senha obrigatório'),
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,
