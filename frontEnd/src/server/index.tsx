@@ -6,9 +6,10 @@ import axios, {
   } from 'axios';
   
   const api: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
+    // baseURL: 'http://localhost:3000',
+    baseURL: 'https://hero-node.vercel.app'
   });
-  let isRefreshing = false;
+  // let isRefreshing = false;
   let failedRequest: Array<RequestConfig> = [];
   
   interface RequestConfig extends AxiosRequestConfig {
@@ -45,7 +46,7 @@ import axios, {
             const { token, refresh_token: newToken } = response.data;
             localStorage.setItem('token:semana-heroi', token);
             localStorage.setItem('refresh_token:semana-heroi', newToken);
-            isRefreshing = false;
+            // isRefreshing = false;
             onRefreshed(token);
   
             if (originalRequest?.headers) {
