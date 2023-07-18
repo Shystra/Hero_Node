@@ -1,27 +1,29 @@
-import { prisma } from "../database/prisma";
+import { DbConnection } from "../database/mongo";
+// import { prisma } from "../database/prisma";
 import { ICreate } from "../interfaces/UsersInterface";
+import { Users } from "../models";
 
 class UsersRepository {
     async create({name, email, password}: ICreate) {
-        const result = await prisma.users.create({data: {name, email, password}});
+        const result = await Users.create({data: {name, email, password}});
 
         return result;
     }
 
     async findUserByEmail(email: string) {
-        const result = await prisma.users.findUnique({where: {email: email}});
+        const result = await Users.findUnique({where: {email: email}});
 
         return result;
     }
 
     async findUserById(id: string) {
-        const result = await prisma.users.findUnique({where: {id: id}});
+        const result = await Users.findUnique({where: {id: id}});
 
         return result;
     }
 
     async update(name: string, avatar_url: string, user_id: string) {
-        const result = await prisma.users.update({
+        const result = await Users.update({
             where: {
                 id: user_id
             },
@@ -35,7 +37,7 @@ class UsersRepository {
     }
 
     async updatePassword(newPassword: string, user_id: string) {
-        const result = await prisma.users.update({
+        const result = await Users.update({
             where: {
                 id: user_id
             },
