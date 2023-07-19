@@ -37,15 +37,21 @@ class UsersServices {
                 throw new Error('User not found');
             }
 
-            const passwordMatch = compare(oldPassword, findByUserById.password);
+            const passwordMatch = await compare(oldPassword, findByUserById.password);
 
             if (!passwordMatch) {
                 throw new Error('Password invalid');
             }
+            password = findByUserById.password;
 
             password = await hash(newPassword, 10);
 
             await this.usersRepository.updatePassword(password, user_id);
+
+
+            // password = await hash(newPassword, 10);
+
+            // await this.usersRepository.updatePassword(password, user_id);
         }
 
         if(avatar_url) {

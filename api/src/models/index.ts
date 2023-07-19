@@ -1,52 +1,54 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { Schema, mongo, Types, Document } from "mongoose";
 import { v4 as uuid } from 'uuid';
 
-function generateUniqueEmail(): string{
-    return 'unique-email@example.com'
-}
-
-const user_Test = new mongoose.Schema({
-id: {
-    type: String,
-    default: uuid(),
-},
-email:{
-    type: String, 
-    default: function(){
-        const uniqueValue = generateUniqueEmail();
-        return uniqueValue;
+interface IUser extends Document {
+    id: string;
+    email: string;
+    password: string;
+    name: string;
+    avatar_url: string;
+    Schedule: ISchedule[];
+  }
+  
+  interface ISchedule extends Document {
+    id: string;
+    name: string;
+    phone: string;
+    date: Date;
+    user_id: string;
+    _id: mongoose.Types.ObjectId;
+    users: IUser['_id'];
+  }
+  
+  const UserSchema = new Schema<IUser>({
+    id: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    name: { type: String, required: true },
+    avatar_url: { type: String, default: '' },
+    Schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }],
+  });
+  
+  const ScheduleSchema = new Schema<ISchedule>({
+    id: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    phone: { type: String, required: true },
+    date: { type: Date, required: true },
+    user_id: { type: String, default: '' },
+    users: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  });
+  
+  ScheduleSchema.set('toJSON', {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
     },
-    unique: true,
-},
+  });
+  
 
-password: String,
-name: String,
-avatar_url: String,
-Schedule: String
-
-});
-
-
-const shedule_Test = new mongoose.Schema ({
-
-    id:{
-        type: String,
-        default: uuid(),
-    },
-    name: String,
-    phone: String,
-    date: Date,
-    user_id:{
-        // type: String, 
-        default: ('')
-    },
-    users:{
-        type: String, 
-        
-    }
-})
-
-const Users = mongoose.model('Users', user_Test);
-const Shedules = mongoose.model('Shedules', shedule_Test);
-
-export { Users, Shedules }
+  
+  const User = mongoose.model<IUser>('User', UserSchema);
+  const Schedule = mongoose.model<ISchedule>('Schedule', ScheduleSchema);
+  
+  export { User, Schedule };
