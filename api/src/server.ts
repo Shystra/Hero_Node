@@ -4,13 +4,18 @@ import multer from 'multer';
 import { upload } from './config/multer';
 import { SchedulesRoutes } from './routes/schedules.routes';
 import cors from 'cors';
+import { DbConnection } from './database/mongo';
 
 
 
 const app: Application = express();
+const dabase = new DbConnection()
+
+dabase.connect()
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));3
+
 
 // /old?text=Olá%20Mundo
 
@@ -26,7 +31,8 @@ app.use(
     (err: Error, request: Request, response: Response, next: NextFunction) => {
     if (err instanceof Error) {
         return response.status(400).json({
-            message: err.message,
+            message: err.message,'testing'
+            
         });
         
     }

@@ -20,7 +20,7 @@ interface IUser extends Document {
     users: IUser['_id'];
   }
   
-  const UserSchema = new Schema<IUser>({
+  const UserSchema = new mongoose.Schema<IUser>({
     id: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
@@ -29,7 +29,7 @@ interface IUser extends Document {
     Schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }],
   });
   
-  const ScheduleSchema = new Schema<ISchedule>({
+  const ScheduleSchema = new mongoose.Schema<ISchedule>({
     id: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     phone: { type: String, required: true },
