@@ -24,7 +24,10 @@ class SchedulesServices {
             throw new Error('It is not allowed to schedule old date.');
         }
 
-        const checkIsAvailable = await this.schedulesRepository.findByDate(hourStart, user_id);
+        const checkIsAvailable = await this.schedulesRepository.findByDate({
+            date: hourStart,
+            user_id
+        });
         if (checkIsAvailable) {
             throw new Error('Schedule date is not available.');
         }
@@ -48,7 +51,11 @@ class SchedulesServices {
             throw new Error('It is not allowed to schedule old date.');
         }
 
-        const checkIsAvailable = await this.schedulesRepository.findByDate(hourStart, user_id);
+        const checkIsAvailable = await this.schedulesRepository.findByDate({
+            date: hourStart,
+            user_id
+        });
+        
         if (checkIsAvailable) {
             throw new Error('Schedule date is not available.');
         }
