@@ -4,17 +4,17 @@ import multer from 'multer';
 import { upload } from './config/multer';
 import { SchedulesRoutes } from './routes/schedules.routes';
 import cors from 'cors';
-import { DbConnection } from './database/mongo';
+// import { DbConnection } from './database/mongo';
 
 
 
 const app: Application = express();
-const dabase = new DbConnection()
+// const dabase = new DbConnection()
 
-dabase.connect()
+// dabase.connect()
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));3
+app.use(express.urlencoded({ extended: true }));
 
 
 // /old?text=Olá%20Mundo
@@ -42,4 +42,4 @@ app.use(
     }
 );
 
-app.listen(3000, () => console.log('Server is running'));
+app.listen(3003, () => console.log('Server is running'));

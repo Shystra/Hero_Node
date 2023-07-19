@@ -2,35 +2,28 @@
 // import { prisma } from "../database/prisma";
 import { IByDate, ICreate } from "../interfaces/SchedulesInterface";
 import { endOfDay, startOfDay } from 'date-fns';
-import { Schedule } from "../models";
+import { prisma } from '../database/prisma';
+// import { Schedule } from "../models";
 
 class SchedulesRepository {
 
     async create({ name, phone, date, user_id}: ICreate) {
-        const result = await Schedule.create({
+        const result = await prisma.schedule.create({
             data: { name, phone, date, user_id}
         });
 
         return result;
     }
 
-    async findByDate({ date, user_id }: IByDate) {
-        const result = await Schedule.find({
-            where: {
-                date,
-                user_id
-            },
-            orderBy: {
-                date: 'asc'
-            }
-        });
+    async findByDate(date: Date, user_id: string){
+        const result = await prisma.schedule.findFirst({where: { date, user_id }});
 
         return result;
     }
 
     async findAllDate(date: Date) {
-        const result = await Schedule.find({
-            whereConditions: {
+        const result = await prisma.schedule.findMany({
+            where: {
                 date: {
                     gte: startOfDay(date),
                     lt: endOfDay(date)
@@ -45,8 +38,8 @@ class SchedulesRepository {
     }
 
     async update(id: string, date: Date) {
-        const result = await Schedule.updateOne({
-            whereConditions: {
+        const result = await prisma.schedule.update({
+            where: {
                 id
             },
             data: {

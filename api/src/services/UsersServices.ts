@@ -6,6 +6,7 @@ import { s3 } from "../config/aws";
 import { v4 as uuid } from "uuid";
 import { sign, verify } from "jsonwebtoken";
 
+
 class UsersServices {
     private usersRepository: UsersRepository;
 
@@ -21,7 +22,7 @@ class UsersServices {
             throw new Error('User exists')
         }
 
-        const hashPassword = await hash(password, 10);
+        const hashPassword = await hash(password, 2);
 
         const create = await this.usersRepository.create({name, email, password: hashPassword});
         

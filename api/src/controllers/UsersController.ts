@@ -17,9 +17,9 @@ class UsersController {
     // buscar somente um
 
     }
-
+    // criar
     async store(request:Request, response:Response, next: NextFunction) {
-        // criar
+        
         const { name, email, password } = request.body; 
         try {
             const result = await this.usersServices.create({name, email, password});
